@@ -1,0 +1,124 @@
+/* общий стиль */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(120deg, #83ead8, #ff7eb3);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* дерево */
+.sakura-outer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sakura-tree {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50vh; /* адаптивно */
+  max-height: 400px;
+}
+
+/* контейнер текста */
+.container {
+  position: relative;
+  text-align: center;
+}
+
+/* печатающийся текст */
+#text {
+  font-size: clamp(20px, 8vw, 70px); /* адаптивный размер */
+  color: white;
+  border-right: 4px solid white;
+  padding-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blink 1s infinite;
+  z-index: 2;
+  position: relative;
+}
+
+@keyframes blink {
+  0%, 100% { border-color: white; }
+  50% { border-color: transparent; }
+}
+
+/* контейнер сердца */
+#heart-container {
+  position: absolute;
+  width: 50vw;      /* адаптивно */
+  height: 45vw;     /* адаптивно */
+  max-width: 400px; /* ограничение для больших экранов */
+  max-height: 350px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: heartbeat 2s infinite;
+}
+
+/* анимация пульсации сердца */
+@keyframes heartbeat {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  25% { transform: translate(-50%, -50%) scale(1.05); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+  75% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* маленькие сердечки */
+.heart {
+  position: absolute;
+  font-size: 2vw; /* адаптивно */
+  animation: appear 1s ease forwards;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* лепестки сакуры */
+.sakura-petal {
+  position: absolute;
+  top: -20px;
+  color: #ffb7c5;
+  user-select: none;
+  pointer-events: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* медиа-запрос для маленьких экранов */
+@media (max-width: 600px) {
+  #text { font-size: clamp(16px, 10vw, 50px); }
+  #heart-container { width: 70vw; height: 60vw; }
+  .sakura-tree { height: 40vh; }
+  .heart { font-size: 4vw; }
+}
