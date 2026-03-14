@@ -1,4 +1,4 @@
-//* печатающийся текст */
+// печатающийся текст
 const phrases = [
   "Аниса ты самая красивая девушка которую я когда либо видел",
   "Твои янтарьные глаза самые красивые",
@@ -18,16 +18,13 @@ const phrases = [
 let phraseIndex = 0;
 let letterIndex = 0;
 let isDeleting = false;
-
 const text = document.getElementById("text");
 
 function typeEffect() {
   const currentPhrase = phrases[phraseIndex];
-
   if (!isDeleting) {
     text.textContent = currentPhrase.substring(0, letterIndex + 1);
     letterIndex++;
-
     if (letterIndex === currentPhrase.length) {
       isDeleting = true;
       setTimeout(typeEffect, 1500);
@@ -36,28 +33,24 @@ function typeEffect() {
   } else {
     text.textContent = currentPhrase.substring(0, letterIndex - 1);
     letterIndex--;
-
     if (letterIndex === 0) {
       isDeleting = false;
       phraseIndex = (phraseIndex + 1) % phrases.length;
     }
   }
-
   setTimeout(typeEffect, 80);
 }
-
 typeEffect();
 
-/* сердце из маленьких сердечек */
+// сердце из маленьких сердечек
 const heartContainer = document.getElementById("heart-container");
 
 function createHeartShape() {
-  const scale = heartContainer.offsetWidth / 50; // масштаб под контейнер
+  const scale = heartContainer.offsetWidth / 50;
   let t = 0;
-
   const interval = setInterval(() => {
     let x = 16 * Math.pow(Math.sin(t), 3);
-    let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+    let y = 13 * Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
 
     x *= scale;
     y *= scale;
@@ -71,15 +64,12 @@ function createHeartShape() {
     heartContainer.appendChild(heart);
 
     t += 0.2;
-
-    if (t >= Math.PI * 2) {
-      clearInterval(interval);
-    }
+    if (t >= Math.PI*2) clearInterval(interval);
   }, 50);
 }
 createHeartShape();
 
-/* падающие лепестки сакуры */
+// падающие лепестки сакуры
 const sakuraContainer = document.querySelector(".sakura-outer-container");
 
 function createSakuraPetal() {
@@ -87,13 +77,10 @@ function createSakuraPetal() {
   petal.className = "sakura-petal";
   petal.innerHTML = "🌸";
   petal.style.left = Math.random() * window.innerWidth + "px";
-  petal.style.animationDuration = (5 + Math.random() * 5) + "s";
-  petal.style.fontSize = (window.innerWidth * 0.03 + Math.random() * 10) + "px"; // адаптивный размер
+  petal.style.animationDuration = (5 + Math.random()*5) + "s";
+  petal.style.fontSize = (window.innerWidth*0.03 + Math.random()*10) + "px";
   sakuraContainer.appendChild(petal);
-
-  petal.addEventListener("animationend", () => {
-    petal.remove();
-  });
+  petal.addEventListener("animationend", () => petal.remove());
 }
 
 setInterval(createSakuraPetal, 300);
