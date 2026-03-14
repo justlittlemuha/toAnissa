@@ -7,7 +7,7 @@ body {
   align-items: center;
   background: linear-gradient(120deg, #83ead8, #ff7eb3);
   font-family: Arial, sans-serif;
-  overflow: hidden;
+  overflow-x: hidden; /* запрещаем горизонтальный скролл */
 }
 
 /* дерево */
@@ -24,62 +24,64 @@ body {
 
 .sakura-tree {
   position: absolute;
-  bottom: 0;
+  bottom: 0; 
   left: 50%;
   transform: translateX(-50%);
-  height: 50vh; /* адаптивно */
-  max-height: 400px;
+  height: 35vh;
+  max-height: 250px;
+  min-height: 150px;
 }
 
 /* контейнер текста */
 .container {
   position: relative;
   text-align: center;
+  width: 90vw;
+  max-width: 500px;
 }
 
-/* печатающийся текст */
+/* текст с адаптивным переносом */
 #text {
-  font-size: clamp(20px, 8vw, 70px); /* адаптивный размер */
+  font-size: clamp(14px, 5vw, 50px);
   color: white;
-  border-right: 4px solid white;
-  padding-right: 10px;
-  white-space: nowrap;
-  overflow: hidden;
+  border-right: 2px solid white;
+  padding: 0 5px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  text-align: center;
   animation: blink 1s infinite;
-  z-index: 2;
-  position: relative;
 }
 
 @keyframes blink {
-  0%, 100% { border-color: white; }
-  50% { border-color: transparent; }
+  0%,100%{ border-color: white; }
+  50%{ border-color: transparent; }
 }
 
 /* контейнер сердца */
 #heart-container {
   position: absolute;
-  width: 50vw;      /* адаптивно */
-  height: 45vw;     /* адаптивно */
-  max-width: 400px; /* ограничение для больших экранов */
-  max-height: 350px;
+  width: 60%;
+  max-width: 350px;
+  aspect-ratio: 1/1;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   animation: heartbeat 2s infinite;
 }
 
-/* анимация пульсации сердца */
 @keyframes heartbeat {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  25% { transform: translate(-50%, -50%) scale(1.05); }
-  50% { transform: translate(-50%, -50%) scale(1.1); }
-  75% { transform: translate(-50%, -50%) scale(1.05); }
+  0%,100%{ transform: translate(-50%, -50%) scale(1); }
+  25%{ transform: translate(-50%, -50%) scale(1.05); }
+  50%{ transform: translate(-50%, -50%) scale(1.1); }
+  75%{ transform: translate(-50%, -50%) scale(1.05); }
 }
 
 /* маленькие сердечки */
 .heart {
   position: absolute;
-  font-size: 2vw; /* адаптивно */
+  font-size: 4vw;
+  max-font-size: 16px;
   animation: appear 1s ease forwards;
 }
 
@@ -101,24 +103,15 @@ body {
 }
 
 @keyframes fall {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(50vh) rotate(180deg);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  50% { transform: translateY(50vh) rotate(180deg); opacity: 0.8; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 
 /* медиа-запрос для маленьких экранов */
-@media (max-width: 600px) {
-  #text { font-size: clamp(16px, 10vw, 50px); }
-  #heart-container { width: 70vw; height: 60vw; }
-  .sakura-tree { height: 40vh; }
-  .heart { font-size: 4vw; }
+@media (max-width: 500px) {
+  #text { font-size: clamp(12px, 6vw, 36px); }
+  #heart-container { width: 70%; }
+  .sakura-tree { height: 30vh; max-height: 180px; }
+  .heart { font-size: 5vw; }
 }
